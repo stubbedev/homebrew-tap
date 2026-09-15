@@ -1,6 +1,6 @@
-# stubbe/homebrew-tap
+# stubbedev/homebrew-tap
 
-Personal Homebrew tap, currently serving [Harness](https://github.com/stubbedev/harness),
+Homebrew tap for [Harness](https://github.com/stubbedev/harness),
 a terminal-based AI coding assistant.
 
 ## Install
