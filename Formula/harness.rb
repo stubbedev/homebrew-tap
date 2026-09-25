@@ -1,26 +1,26 @@
 class Harness < Formula
   desc "Terminal-based AI coding assistant"
   homepage "https://github.com/stubbedev/harness"
-  version "0.0.54"
+  version "0.0.55"
   license "FSL-1.1-MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/stubbedev/harness/releases/download/v0.0.54/harness_darwin_amd64"
-      sha256 "67c5f309afae36c3dfb0cb899082ea6941b3f6353bfc3a23563d22ce1eb94587"
+      url "https://github.com/stubbedev/harness/releases/download/v0.0.55/harness_darwin_amd64"
+      sha256 "e09a3a974edbfea823cd2f033a317426dfa6df819bf9b561a8bb2f3f74827072"
     else
-      url "https://github.com/stubbedev/harness/releases/download/v0.0.54/harness_darwin_arm64"
-      sha256 "88c20313d34dda0b5c9ae357695f08de57b5aba7e9e1b16c6a09869e73742435"
+      url "https://github.com/stubbedev/harness/releases/download/v0.0.55/harness_darwin_arm64"
+      sha256 "d93366d3fd42f5adef8d9088f79092bb63dbd7a3f812dd076e4a9c7c13a5fb49"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/stubbedev/harness/releases/download/v0.0.54/harness_linux_amd64"
-      sha256 "3ecd31d6eaaf129807c46c348875a9abcc88285939350faa6ac304a210f5db6c"
+      url "https://github.com/stubbedev/harness/releases/download/v0.0.55/harness_linux_amd64"
+      sha256 "5fecaf6aeda5895202b5b46d296b1d7d0f8fac18f622b5484330f6aee53169c8"
     else
-      url "https://github.com/stubbedev/harness/releases/download/v0.0.54/harness_linux_arm64"
-      sha256 "b99d10678e78d4b6044cbf0332f0846d16f68b407fd83af40f29a404408282bd"
+      url "https://github.com/stubbedev/harness/releases/download/v0.0.55/harness_linux_arm64"
+      sha256 "bba2fd8cd04325b811ddeaba2b0e57afc93c5d6ae77d09a80f36404672965e30"
     end
   end
 
