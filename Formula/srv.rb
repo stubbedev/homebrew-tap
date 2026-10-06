@@ -1,7 +1,7 @@
 class Srv < Formula
   desc "Traefik + TLS + DNS edge layer for static, proxy, and container sites"
   homepage "https://github.com/stubbedev/srv"
-  version "0.4.31"
+  version "0.4.32"
   license "MIT"
 
   depends_on "mkcert"
@@ -9,22 +9,22 @@ class Srv < Formula
   on_macos do
     on_arm do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-darwin-arm64.tar.gz"
-      sha256 "60b6ce61adfe4bc3e555baa54a575a77a3513e2a2315a08484f2be2686e6fbde"
+      sha256 "29acc1c5f49f0893b2f0199f1c280c0cc0597bca6d975c74307707eb678c92da"
     end
     on_intel do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-darwin-amd64.tar.gz"
-      sha256 "0b33eb2d60ec8e82cb7081aa8c30f0300b33b4241ba2ab7189916ff6e0890d53"
+      sha256 "1b077f7987c4994866f04f4536cbf80fdd4a3e151031dd2be39dba352f17d3e8"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-linux-arm64.tar.gz"
-      sha256 "4ec886955ffcffd02aafc2e4c1b230613107197a09c1485eea2ae5f4a337139a"
+      sha256 "a4f2a2336f392fa0ae17f0055e16847ea2aaf75b1533f436d8a5ac668015e3d0"
     end
     on_intel do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-linux-amd64.tar.gz"
-      sha256 "772283b01ccae363e577456d13f57637431f67328ea12286154ff8039edf00fe"
+      sha256 "591af821ae181317822a585be65b336d54becfbeafb1b6ba75b3bff48283e23a"
     end
   end
 
@@ -32,8 +32,19 @@ class Srv < Formula
     bin.install "srv"
   end
 
+  # Lets users run `brew services start srv` to keep the watch
+  # daemon running across reboots without invoking
+  # `srv daemon install` manually. The two installers are
+  # mutually exclusive — both register a launchd agent / systemd
+  # user unit that runs the same Docker watcher, and would race
+  # over container-attach events. The caveats below ask users
+  # to pick one.
   service do
     run [opt_bin/"srv", "daemon", "start", "--foreground"]
+    # KeepAlive only on unexpected exits — `brew services stop`
+    # and `srv daemon stop` (clean exit 0) leave the daemon
+    # down. Mirrors the plist `srv daemon install` writes so
+    # behaviour matches across install paths.
     keep_alive successful_exit: false
     process_type :background
     log_path var/"log/srv.log"
