@@ -1,30 +1,34 @@
 class Maestro < Formula
   desc "Composer, natively: a drop-in replacement for the composer command"
   homepage "https://github.com/stubbedev/maestro"
-  version "1.0.3"
+  version "1.0.4"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/stubbedev/maestro/releases/download/v1.0.3/maestro_darwin_amd64"
-      sha256 "4a0efc793a23c367839ca24684d34f00d4d979c44bc225ce53140c63d65d74f2"
+      url "https://github.com/stubbedev/maestro/releases/download/v1.0.4/maestro_darwin_amd64"
+      sha256 "911cff61263eb607858bfa510a70f886145048275dea075d693adfad2f51a743"
     else
-      url "https://github.com/stubbedev/maestro/releases/download/v1.0.3/maestro_darwin_arm64"
-      sha256 "fc8a53ed713fecca3fe6672c947f8b974c0ecbccfd289b3bfd69fb475e8834af"
+      url "https://github.com/stubbedev/maestro/releases/download/v1.0.4/maestro_darwin_arm64"
+      sha256 "5a15fec79cbef5f66668c716365d7c743ab49352215e0e2ab73b99ddbb3bde38"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/stubbedev/maestro/releases/download/v1.0.3/maestro_linux_amd64"
-      sha256 "7d4748a1ebc02d16056a67212d4f3b0225423abb325e6f6bffe918db12b0891a"
+      url "https://github.com/stubbedev/maestro/releases/download/v1.0.4/maestro_linux_amd64"
+      sha256 "65cd3d199dd21a0ff0cdfd32c1e473e3d95c8862df88a0d3b9b291355ae2aa03"
     else
-      url "https://github.com/stubbedev/maestro/releases/download/v1.0.3/maestro_linux_arm64"
-      sha256 "c824a723f4c984fbed695f9c314117ca9d04f77f58f0e87f9649793f8277461f"
+      url "https://github.com/stubbedev/maestro/releases/download/v1.0.4/maestro_linux_arm64"
+      sha256 "3b4b2b325cffcc61847b7b773b20fe4a7031f6f90863c18f7de8e5d293ba4365"
     end
   end
 
-  depends_on "php"
+  # maestro runs PHP code (platform detection, plugins, scripts) with the
+  # php first on PATH, whichever installed it, so Homebrew's php is only
+  # an option: forcing it builds php's whole tree where no bottle fits
+  # (an Intel brew on Apple Silicon) for users who already have a php.
+  depends_on "php" => :optional
 
   def install
     bin.install asset => "maestro"
@@ -33,13 +37,17 @@ class Maestro < Formula
 
   def caveats
     <<~EOS
+      maestro runs PHP code with the php first on your PATH. If you have
+      none, install one (`brew install php`, or reinstall maestro with
+      `--with-php`).
+
       To use maestro as composer:
         ln -s "#{opt_bin}/maestro" "$(brew --prefix)/bin/composer"
     EOS
   end
 
   def test
-    assert_match "maestro version #{version}", shell_output("#{bin}/maestro --version 2>&1")
+    assert_match "Maestro version #{version}", shell_output("#{bin}/maestro --version 2>&1")
   end
 
   def asset
