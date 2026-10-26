@@ -1,7 +1,7 @@
 class Srv < Formula
   desc "Traefik + TLS + DNS edge layer for static, proxy, and container sites"
   homepage "https://github.com/stubbedev/srv"
-  version "0.4.32"
+  version "0.4.33"
   license "MIT"
 
   depends_on "mkcert"
@@ -9,22 +9,18 @@ class Srv < Formula
   on_macos do
     on_arm do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-darwin-arm64.tar.gz"
-      sha256 "29acc1c5f49f0893b2f0199f1c280c0cc0597bca6d975c74307707eb678c92da"
-    end
-    on_intel do
-      url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-darwin-amd64.tar.gz"
-      sha256 "1b077f7987c4994866f04f4536cbf80fdd4a3e151031dd2be39dba352f17d3e8"
+      sha256 "4d9ea8fd2e8aea8b284ec4d8fadb707d03fcce72b68fa8fdcaca40e8e636ae58"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-linux-arm64.tar.gz"
-      sha256 "a4f2a2336f392fa0ae17f0055e16847ea2aaf75b1533f436d8a5ac668015e3d0"
+      sha256 "991f81584ef83643fb3d0e2a8f729632f04cd6c02e124c20cdef4e5a954f623e"
     end
     on_intel do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-linux-amd64.tar.gz"
-      sha256 "591af821ae181317822a585be65b336d54becfbeafb1b6ba75b3bff48283e23a"
+      sha256 "212d04b45b7f130a7b34db86c6733d27e687b8bf3db03c10cca5f2c6ced78e35"
     end
   end
 
@@ -32,13 +28,10 @@ class Srv < Formula
     bin.install "srv"
   end
 
-  # Lets users run `brew services start srv` to keep the watch
-  # daemon running across reboots without invoking
-  # `srv daemon install` manually. The two installers are
-  # mutually exclusive — both register a launchd agent / systemd
-  # user unit that runs the same Docker watcher, and would race
-  # over container-attach events. The caveats below ask users
-  # to pick one.
+  # Lets users run `brew services start srv` instead of the
+  # unit `srv install` writes. srv detects this unit: with it
+  # installed, `srv install` and `srv daemon install` do not
+  # add a second one, and `srv daemon start|stop|status` drive it.
   service do
     run [opt_bin/"srv", "daemon", "start", "--foreground"]
     # KeepAlive only on unexpected exits — `brew services stop`
@@ -53,19 +46,16 @@ class Srv < Formula
 
   def caveats
     <<~CAVEATS
-      srv needs Docker installed and running.
+      srv needs a container runtime (Docker, Podman, Colima,
+      OrbStack or Rancher Desktop) with Compose v2.
 
-      To start the watch daemon in the background:
-        brew services start srv
-
-      Or, without homebrew-services:
-        srv daemon install
-
-      Don't enable both — they register competing launchd / systemd
-      units that race over the same Docker watcher.
-
-      First-time setup (Traefik, dnsmasq, mkcert CA, Docker network):
+      First-time setup (Traefik, DNS, local CA, daemon service):
         srv install
+
+      srv install also installs the daemon as a login service. To
+      have Homebrew supervise it instead, run this first; srv then
+      leaves the daemon to brew:
+        brew services start srv
     CAVEATS
   end
 
