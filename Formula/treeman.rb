@@ -1,23 +1,23 @@
 class Treeman < Formula
   desc "Per-worktree development environment helper (DBs, hooks, test clones)"
   homepage "https://github.com/stubbedev/treeman"
-  version "2.5.123"
+  version "2.5.124"
   license "Apache-2.0 OR MIT"
 
   on_macos do
     depends_on arch: :arm64
     url "https://github.com/stubbedev/treeman/releases/download/v#{version}/treeman-#{version}-darwin-arm64.tar.gz"
-    sha256 "d3254ae752a5060c627b43e5bf402c33f757fb80978283a42d947e88e21f3514"
+    sha256 "6699efe650535628ce81309d64312d5fafe6b50a1b83762db32a3a83d3fda00a"
   end
 
   on_linux do
     on_arm do
       url "https://github.com/stubbedev/treeman/releases/download/v#{version}/treeman-#{version}-linux-arm64.tar.gz"
-      sha256 "178dd49a835c90ffa2ecd04fd6cad517057b631ded511ed336fbe147b7fe21e8"
+      sha256 "77b8324a62c61c8fa519e9e5e5ea48bf54bbed91c057e5a49bb4cdee3781c0f6"
     end
     on_intel do
       url "https://github.com/stubbedev/treeman/releases/download/v#{version}/treeman-#{version}-linux-amd64.tar.gz"
-      sha256 "38840632d6970260f7a18eed78a55362b9dd470607ea5b18fcc5f78b72a582fc"
+      sha256 "46bbcf622db24bb25f2e59128e8cebab37c4686f3658c3efb1966aa56c90ba3f"
     end
   end
 
