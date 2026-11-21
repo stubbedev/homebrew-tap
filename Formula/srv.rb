@@ -1,7 +1,7 @@
 class Srv < Formula
   desc "Traefik + TLS + DNS edge layer for static, proxy, and container sites"
   homepage "https://github.com/stubbedev/srv"
-  version "0.5.0"
+  version "0.5.1"
   license "MIT"
 
   depends_on "mkcert"
@@ -9,18 +9,18 @@ class Srv < Formula
   on_macos do
     on_arm do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-darwin-arm64.tar.gz"
-      sha256 "554aa3b0b877eaf0b8a9faa036a322ca918f8a9bb40a48e939945245330a4050"
+      sha256 "aead7e007d173eb0cc1226b60e8133b492acd8743c74343f8a2cfbd88284a3bf"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-linux-arm64.tar.gz"
-      sha256 "73a4e3efc7a1655ae1df42a1f8c35fe6b4f78c18ba67915b976514551bb78daf"
+      sha256 "c70f8477fcdfb775103523c17ab042200a59bc400d89deea5dc7c0061a2bb74d"
     end
     on_intel do
       url "https://github.com/stubbedev/srv/releases/download/v#{version}/srv-#{version}-linux-amd64.tar.gz"
-      sha256 "6ba8e3994b729aba84496eee4ae486e687b521b27ce73e9865e97120e5d4388c"
+      sha256 "6ec72215ea27edf5aa5768d26e5d60c74d6ddac24d0fd8bf9be7345d3b35a95b"
     end
   end
 
