@@ -1,22 +1,22 @@
 class Maestro < Formula
   desc "Composer, natively: a drop-in replacement for the composer command"
   homepage "https://github.com/stubbedev/maestro"
-  version "1.0.16"
+  version "1.0.17"
   license "MIT"
 
   on_macos do
     depends_on arch: :arm64
-    url "https://github.com/stubbedev/maestro/releases/download/v1.0.16/maestro_darwin_arm64"
-    sha256 "a7b3550934f0f16fd685bdad6ab419cd6cb0bfe5a7649e24aed2a9644378e764"
+    url "https://github.com/stubbedev/maestro/releases/download/v1.0.17/maestro_darwin_arm64"
+    sha256 "e42bec54734d0463bb4f1f078fe4203e8303b245647b86691263cf6458fe1ed8"
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/stubbedev/maestro/releases/download/v1.0.16/maestro_linux_amd64"
-      sha256 "788a8f99b0d06825e2c84096188dd51d8033b9a74e274e33ed070365da6b5f17"
+      url "https://github.com/stubbedev/maestro/releases/download/v1.0.17/maestro_linux_amd64"
+      sha256 "861b0a31c78589fc6264eb1c4c942bacff04fe3abe83c29be528ecbf4aa504d7"
     else
-      url "https://github.com/stubbedev/maestro/releases/download/v1.0.16/maestro_linux_arm64"
-      sha256 "8bc6028479e93b7dbe812bb7a5a6ee337e6a1e4c2cb9420eabe9330def986c04"
+      url "https://github.com/stubbedev/maestro/releases/download/v1.0.17/maestro_linux_arm64"
+      sha256 "aeacc03d769c14ec30565728be3a8e57453b6f0ca3a6b876f9258fd54e047c12"
     end
   end
 
